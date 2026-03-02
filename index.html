@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SprkHQ - Eat, Watch, Drive</title>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; overflow-x: hidden; }
+        header { position: fixed; top: 0; width: 100%; background: rgba(0,0,0,0.8); z-index: 100; padding: 1rem 0; }
+        nav ul { list-style: none; display: flex; justify-content: center; gap: 2rem; }
+        nav a { color: white; text-decoration: none; font-weight: bold; }
+        section { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; scroll-snap-align: start; }
+        #home { height: 100vh; background: linear-gradient(to right, #f4a261 0%, #e76f51 50%, #264653 50%, #264653 100%); position: relative; overflow: hidden; }
+        .parallax { position: absolute; top: 0; width: 200%; height: 100%; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f4a261" width="600" height="600"/>e x1="600" y1="0" x2="600" y2="600" stroke="%23ffffff" stroke-width="2"/><rect fill="%23f8f9fa" x="100" y="100" width="200" height="150" rx="10"/>ircle cx="150" cy="250" r="80" fill="%23e76f51"/><rect fill="%23264653" x="700" y="150" width="300" height="300"/><rect fill="%23black" x="750" y="300" width="100" height="50" rx="5"/>ircle cx="850" cy="400" r="40" fill="%23silver"/><path d="M900 380 Q950 350 1000 380 L1050 420 Z" fill="%23red"/></svg>'); background-size: cover; will-change: transform; }
+        .parallax-content { position: relative; z-index: 2; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        #about { background: linear-gradient(135deg, #f4a261, #e76f51); color: white; scroll-snap-type: y mandatory; }
+        #contact { background: #264653; color: white; }
+        form { max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+        input, textarea, button { padding: 0.75rem; border: none; border-radius: 5px; }
+        button { background: #f4a261; color: white; font-weight: bold; cursor: pointer; }
+        @media (max-width: 768px) { .parallax { width: 400%; } nav ul { flex-direction: column; gap: 0.5rem; } }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                ><a href="#home">Home</a></li>
+                ><a href="#about">About</a></li>
+                ><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="home">
+        <div class="parallax"></div>
+        <div class="parallax-content">
+            <h1 style="font-size: 3rem; margin-bottom: 1rem;">SprkHQ</h1>
+            <p>Eat Great. Watch Legends. Drive In.</p>
+        </div>
+    </section>
+    <section id="about">
+        <div style="max-width: 800px; padding: 2rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">About SprkHQ</h2>
+            <p>SprkHQ is SoCal's ultimate fusion: a vibrant restaurant on one side of a crystal-clear glass wall, paired with a premier car mechanic shop on the other. Gearheads and foodies unite—savor farm-fresh Cali cuisine while watching classic cars get restored, engines roar, and enthusiasts showcase their rides in our sun-drenched lot, backed by palm trees and ocean breezes.</p>
+            <p>It's the spot where wrench-turning meets plate-spinning, delivering adrenaline-fueled vibes, mouthwatering meals, and community for car lovers. Park your pride, grab a bite, and stay for the show.</p>
+        </div>
+    </section>
+    <section id="contact">
+        <div style="max-width: 600px; padding: 2rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Get in Touch</h2>
+            <form id="contactForm">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send to moritz@sprkhq.com</button>
+            </form>
+        </div>
+    </section>
+    <script>
+        // Parallax scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.parallax');
+            parallax.style.transform = `translateX(${-scrolled * 0.5}px)`;
+        });
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                e.preventDefault(); document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        // EmailJS (replace YOUR_USER_ID, SERVICE_ID, TEMPLATE_ID)
+        emailjs.init('YOUR_USER_ID');
+        document.getElementById('contactForm').addEventListener('submit', e => {
+            e.preventDefault();
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+                from_name: document.getElementById('name').value,
+                from_email: document.getElementById('email').value,
+                message: document.getElementById('message').value
+            }).then(() => alert('Sent!'), () => alert('Error—check EmailJS setup.'));
+        });
+    </script>
+</body>
+</html>
