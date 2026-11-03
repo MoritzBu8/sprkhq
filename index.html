@@ -1,97 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SprkHQ - Eat, Watch, Drive</title>
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #1a1a1a; color: white; overflow-x: hidden; }
-        header { position: fixed; top: 0; width: 100%; background: rgba(26,26,26,0.95); z-index: 100; padding: 1rem 0; backdrop-filter: blur(10px); }
-        nav ul { list-style: none; display: flex; justify-content: center; gap: 3rem; }
-        nav a { color: #f4a261; text-decoration: none; font-weight: 500; font-size: 1.1rem; transition: color 0.3s; }
-        nav a:hover { color: white; }
-        section { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; scroll-snap-align: start; scroll-snap-stop: always; }
-        #home { height: 100vh; position: relative; overflow: hidden; }
-        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://user-gen-media-assets.s3.amazonaws.com/seedream_images/22172962-3b4e-4a38-b828-1689dcc75a49.png'); background-size: cover; background-position: center; filter: brightness(0.8) contrast(1.1); }
-        .parallax { position: absolute; top: 0; left: 0; width: 100%; height: 100%; will-change: transform; }
-        .hero-content { position: relative; z-index: 3; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
-        .logo { font-size: 4rem; font-weight: 900; background: linear-gradient(45deg, #f4a261, #e76f51); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; letter-spacing: -2px; }
-        .tagline { font-size: 1.5rem; color: #f4a261; margin-top: 1rem; }
-        #about { background: linear-gradient(135deg, #1a1a1a, #2a2a2a); padding: 5rem 2rem; scroll-snap-type: y mandatory; }
-        #about h2 { font-size: 2.8rem; color: #f4a261; margin-bottom: 2rem; }
-        #about p { max-width: 800px; margin: 0 auto 1.5rem; font-size: 1.2rem; line-height: 1.7; }
-        #contact { background: #111; padding: 5rem 2rem; }
-        #contact h2 { font-size: 2.8rem; color: #f4a261; margin-bottom: 2rem; }
-        form { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
-        input, textarea, button { padding: 1rem; border: 1px solid #f4a261; border-radius: 8px; background: #222; color: white; font-size: 1rem; transition: all 0.3s; }
-        input:focus, textarea:focus { outline: none; border-color: #f4a261; box-shadow: 0 0 10px rgba(244,162,97,0.3); }
-        button { background: #f4a261; color: #1a1a1a; font-weight: bold; cursor: pointer; border: none; }
-        button:hover { background: #e76f51; transform: translateY(-2px); }
-        @media (max-width: 768px) { nav ul { gap: 1.5rem; font-size: 1rem; } .logo { font-size: 3rem; } nav { padding: 0 1rem; } }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPRK HQ — Garage. Coffee. Kitchen.</title>
+<meta name="description" content="SPRK HQ: an enthusiast car workshop, coffee bar by day and restaurant by night, under one roof. Coming someday.">
+<meta property="og:title" content="SPRK HQ">
+<meta property="og:description" content="Garage. Coffee. Kitchen. Under one roof.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0d0d0d; --fg:#f2f0eb; --mute:#8a8780; --spark:#ff5a1f; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { height:100%; }
+  body { background:var(--bg); color:var(--fg); font-family:Inter,system-ui,sans-serif; font-weight:300;
+         display:flex; flex-direction:column; min-height:100vh; -webkit-font-smoothing:antialiased; }
+  header, footer { display:flex; justify-content:space-between; align-items:center; padding:28px 6vw;
+         font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); }
+  .logo { color:var(--fg); font-family:Inter,sans-serif; font-weight:600; letter-spacing:.2em; font-size:14px; }
+  .logo span { color:var(--spark); }
+  main { flex:1; display:flex; flex-direction:column; justify-content:center; padding:0 6vw; }
+  h1 { font-weight:600; font-size:clamp(44px,9vw,128px); line-height:.95; letter-spacing:-.03em; }
+  h1 em { font-style:normal; color:var(--spark); }
+  .lede { max-width:560px; margin-top:36px; font-size:clamp(16px,1.6vw,19px); line-height:1.6; color:#cfcbc3; }
+  .pillars { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:#222; margin-top:72px; border:1px solid #222; }
+  .pillars div { background:var(--bg); padding:28px 24px; }
+  .pillars small { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--spark); letter-spacing:.12em; }
+  .pillars h3 { font-weight:600; font-size:18px; margin:10px 0 8px; }
+  .pillars p { font-size:14px; line-height:1.55; color:var(--mute); }
+  a { color:var(--fg); text-decoration:none; border-bottom:1px solid var(--spark); }
+  a:hover { color:var(--spark); }
+  .dot { display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--spark); margin-right:10px;
+         box-shadow:0 0 12px var(--spark); animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity:.35; box-shadow:none; } }
+  @media (max-width:720px) { .pillars { grid-template-columns:1fr; margin-top:48px; } main { padding-top:24px; padding-bottom:24px; } }
+</style>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <section id="home">
-        <div class="hero-bg parallax"></div>
-        <div class="hero-content">
-            <div class="logo">SprkHQ</div>
-            <p>Eat Great. Watch Legends. Drive In.</p>
-            <div class="tagline" style="font-style: italic;">SoCal's Premier Car & Cuisine Fusion</div>
-        </div>
+  <header>
+    <div class="logo">SPRK<span>·</span>HQ</div>
+    <div><span class="dot"></span>In the works</div>
+  </header>
+
+  <main>
+    <h1>Garage.<br>Coffee.<br><em>Kitchen.</em></h1>
+    <p class="lede">One roof for people who love cars and good food. An enthusiast workshop behind the glass, a coffee bar by day, a proper restaurant by night.</p>
+
+    <section class="pillars">
+      <div><small>01 / Workshop</small><h3>The Garage</h3><p>Service, builds and care for enthusiast cars, done in full view.</p></div>
+      <div><small>02 / Day</small><h3>The Coffee Bar</h3><p>Espresso, pastries and an easy lunch while the bays get busy.</p></div>
+      <div><small>03 / Night</small><h3>The Kitchen</h3><p>Lights down, plates up. Sit-down dinner with the cars on display.</p></div>
     </section>
-    <section id="about">
-        <div>
-            <h2>About SprkHQ</h2>
-            <p>SprkHQ is SoCal's ultimate fusion: a vibrant restaurant on one side of a crystal-clear glass wall, paired with a premier car mechanic shop on the other. Gearheads and foodies unite—savor farm-fresh Cali cuisine while watching classic cars get restored, engines roar, and enthusiasts showcase their rides in our sun-drenched lot, backed by palm trees and ocean breezes.</p>
-            <p>It's the spot where wrench-turning meets plate-spinning, delivering adrenaline-fueled vibes, mouthwatering meals, and community for car lovers. Park your pride, grab a bite, and stay for the show.</p>
-        </div>
-    </section>
-    <section id="contact">
-        <div>
-            <h2>Get in Touch</h2>
-            <form id="contactForm">
-                <input type="text" id="name" placeholder="Your Name" required>
-                <input type="email" id="email" placeholder="Your Email" required>
-                <textarea id="message" placeholder="Your Message" rows="6" required></textarea>
-                <button type="submit">Send to info@sprkhq.com</button>
-            </form>
-        </div>
-    </section>
-    <script>
-        // Enhanced parallax
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallax = document.querySelector('.parallax');
-            parallax.style.transform = `translateY(${scrolled * -0.5}px) translateX(${scrolled * -0.3}px)`;
-        });
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', e => {
-                e.preventDefault();
-                document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-        // EmailJS setup (get free keys from emailjs.com)
-        emailjs.init('YOUR_USER_ID'); // Replace
-        document.getElementById('contactForm').addEventListener('submit', e => {
-            e.preventDefault();
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', { // Replace
-                from_name: document.getElementById('name').value,
-                from_email: document.getElementById('email').value,
-                message: document.getElementById('message').value
-            }).then(() => { alert('Message sent!'); e.target.reset(); }, err => alert('Error: ' + err.text));
-        });
-    </script>
+  </main>
+
+  <footer>
+    <div>© <span id="y"></span> SPRK HQ</div>
+    <div><a href="mailto:info@sprkhq.com">info@sprkhq.com</a></div>
+  </footer>
+  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
 </body>
 </html>
