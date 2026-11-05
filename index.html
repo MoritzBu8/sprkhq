@@ -9,9 +9,40 @@
 <meta property="og:description" content="Garage. Coffee. Kitchen. Under one roof.">
 <meta property="og:image" content="https://sprkhq.com/img/tour-1-exterior.jpg">
 <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(fonts/Inter-300.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/Inter-400.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/Inter-600.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/JetBrainsMono-400.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
   :root { --bg:#0d0d0d; --fg:#f2f0eb; --mute:#8a8780; --spark:#ff5a1f; }
   * { box-sizing:border-box; margin:0; padding:0; }
   html { scroll-behavior:smooth; }
@@ -106,6 +137,9 @@
     footer { flex-direction:column; gap:8px; }
   }
   @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .hero img, .scene img, .cap { animation:none; transition:none; transform:none; opacity:1; } }
+  .concept { position:absolute; right:6vw; bottom:28px; color:rgba(242,240,235,.6); font-size:10px; }
+  .consent { margin-top:10px; color:var(--mute); font-size:12px; line-height:1.5; max-width:440px; }
+  .consent a, footer a { color:var(--mute); text-decoration:underline; }
 </style>
 </head>
 <body>
@@ -124,6 +158,7 @@
     <h1>Garage.<br>Coffee.<br><em>Kitchen.</em></h1>
     <p class="lede">One roof for people who love cars and good food. An enthusiast workshop behind the glass, a coffee bar by day, a proper restaurant by night.</p>
     <div class="scroll-hint mono">Scroll for the tour</div>
+    <div class="concept mono">Concept renders</div>
   </section>
 
   <section class="scene" id="garage"><div class="frame"><img src="img/tour-2-garage.jpg" alt="Inside the garage looking out to the café across the terrace">
@@ -160,6 +195,7 @@
           <button type="submit">Count me in</button>
         </form>
         <p class="form-note mono" id="form-note">No spam. Leave anytime.</p>
+        <p class="consent">By signing up you agree to receive SPRK updates by email. Unsubscribe anytime. See our <a href="privacy.html">Privacy Policy</a>.</p>
       </div>
       <div class="hello">
         <small class="eyebrow mono">Contact</small>
@@ -172,7 +208,7 @@
 
   <footer class="mono">
     <div>© <span id="y"></span> SPRK</div>
-    <div>Garage. Coffee. Kitchen.</div>
+    <div><a href="privacy.html">Privacy</a> · Images are concept renders</div>
   </footer>
 
 <script>
@@ -180,9 +216,12 @@ document.getElementById('y').textContent=new Date().getFullYear();
 document.getElementById('signup').addEventListener('submit',function(e){
   e.preventDefault(); var v=document.getElementById('email').value.trim(), n=document.getElementById('form-note');
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ n.textContent='Please enter a valid email.'; return; }
-  /* TODO: wire to newsletter provider (Kit) before launch. Fallback: mailto. */
-  window.location.href='mailto:hello@sprkhq.com?subject='+encodeURIComponent('Add me to the SPRK list')+'&body='+encodeURIComponent('Please add '+v+' to the SPRK updates list.');
-  n.textContent="Thanks. You're on the list.";
+  var b=this.querySelector('button'); b.disabled=true; n.textContent='Sending...';
+  var fd=new FormData(); fd.append('email_address',v);
+  fetch('https://app.kit.com/forms/10146096/subscriptions',{method:'POST',body:fd,headers:{'Accept':'application/json'}})
+    .then(function(r){ if(!r.ok) throw 0; n.textContent='Almost there. Check your inbox to confirm.'; document.getElementById('email').value=''; })
+    .catch(function(){ n.textContent='Something went wrong. Email hello@sprkhq.com and we\'ll add you.'; })
+    .then(function(){ b.disabled=false; });
 });
 (function(){
   var hdr=document.querySelector('header');
