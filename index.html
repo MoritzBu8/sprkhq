@@ -219,7 +219,8 @@ document.getElementById('signup').addEventListener('submit',function(e){
   var b=this.querySelector('button'); b.disabled=true; n.textContent='Sending...';
   var fd=new FormData(); fd.append('email_address',v);
   fetch('https://app.kit.com/forms/10146096/subscriptions',{method:'POST',body:fd,headers:{'Accept':'application/json'}})
-    .then(function(r){ if(!r.ok) throw 0; n.textContent='Almost there. Check your inbox to confirm.'; document.getElementById('email').value=''; })
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(d){ if(d && d.status==='quarantined' && d.url){ window.location.href=d.url; return; } n.textContent='Almost there. Check your inbox to confirm.'; document.getElementById('email').value=''; })
     .catch(function(){ n.textContent='Something went wrong. Email hello@sprkhq.com and we\'ll add you.'; })
     .then(function(){ b.disabled=false; });
 });
