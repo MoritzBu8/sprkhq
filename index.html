@@ -88,6 +88,9 @@
   .scene.in .cap { opacity:1; transform:none; }
   .cap small, .eyebrow { color:var(--spark); }
   .cap small.mono, .eyebrow.mono { font-size:clamp(15px,1.4vw,18px); letter-spacing:.2em; font-weight:400; }
+  .pt { color:var(--spark); }
+  .cap h3.one { white-space:nowrap; }
+  @media (max-width:560px) { .cap h3.one { font-size:6.6vw; } }
   .cap h3 { font-weight:600; font-size:clamp(30px,4.5vw,56px); letter-spacing:-.02em; margin:10px 0 12px; }
   .cap p { font-size:clamp(15px,1.4vw,18px); line-height:1.6; color:#e6e2da; }
   .progress { position:fixed; right:28px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:12px; z-index:5; opacity:0; transition:opacity .4s; }
@@ -155,26 +158,25 @@
   <section class="hero">
     <img src="img/tour-1-exterior.jpg" alt="SPRK from the street: garage on the right, café on the left, a sunny terrace in between">
     <div class="status mono"><span class="dot"></span>In the works</div>
-    <h1>Garage.<br>Coffee.<br><em>Kitchen.</em></h1>
+    <h1>Garage<em>.</em><br>Coffee<em>.</em><br>Kitchen<em>.</em></h1>
     <p class="lede">One roof for people who love cars and good food. An enthusiast workshop behind the glass, a coffee bar by day, a proper restaurant by night.</p>
     <div class="scroll-hint mono">Scroll for the tour</div>
-    <div class="concept mono">Concept renders</div>
   </section>
 
   <section class="scene" id="garage"><div class="frame"><img src="img/tour-2-garage.jpg" alt="Inside the garage looking out to the café across the terrace">
-    <div class="cap"><small class="mono">Garage</small><h3>Behind the glass.</h3><p>Air-cooled classics next to modern machines. Service and builds by people who care.</p></div></div></section>
+    <div class="cap"><small class="mono">Garage</small><h3>Behind the glass<span class="pt">.</span></h3><p>Air-cooled classics next to modern machines. Service and builds by people who care.</p></div></div></section>
 
   <section class="scene" id="coffee"><div class="frame"><img src="img/tour-3-cafe.jpg" alt="The café and its sunny terrace, garage on the right">
-    <div class="cap"><small class="mono">Coffee</small><h3>Coffee in the sun.</h3><p>Espresso, pastries and an easy lunch on the patio while the bays get busy.</p></div></div></section>
+    <div class="cap"><small class="mono">Coffee</small><h3>Coffee in the sun<span class="pt">.</span></h3><p>Espresso, pastries and an easy lunch on the patio while the bays get busy.</p></div></div></section>
 
   <section class="scene" id="kitchen"><div class="frame"><img src="img/tour-4-night.jpg" alt="Dinner on the terrace at dusk, the garage glowing across the way">
-    <div class="cap"><small class="mono">Kitchen</small><h3>Lights down, plates up.</h3><p>A proper sit-down dinner, with the garage glowing like a gallery.</p></div></div></section>
+    <div class="cap"><small class="mono">Kitchen</small><h3 class="one">Lights down, plates up<span class="pt">.</span></h3><p>A proper sit-down dinner, with the garage glowing like a gallery.</p></div></div></section>
 
   <nav class="progress" aria-hidden="true"><i></i><i></i><i></i></nav>
 
   <section class="block" id="shop">
     <small class="eyebrow mono">Shop</small>
-    <h2>Wear it before it opens.</h2>
+    <h2>Wear it before it opens<span class="pt">.</span></h2>
     <p class="sub">The first SPRK pieces are on their way. Caps, tees and a keychain for the car you love.</p>
     <div class="grid">
       <div class="item"><div class="ph"><img src="img/shop-cap.jpg" alt="Black SPRK dad cap" loading="lazy"><span class="badge">Coming soon</span></div><h4>SPRK Dad Cap</h4><p>Black, embroidered</p></div>
@@ -187,7 +189,7 @@
     <div class="contact-grid">
       <div class="signup">
         <small class="eyebrow mono">Updates</small>
-        <h2>First in line.</h2>
+        <h2>First in line<span class="pt">.</span></h2>
         <p class="sub">Opening news, early invites and the first merch drop. One short email now and then.</p>
         <form id="signup" class="form" novalidate>
           <label for="email" class="sr">Email</label>
@@ -199,7 +201,7 @@
       </div>
       <div class="hello">
         <small class="eyebrow mono">Contact</small>
-        <h2>Say hello.</h2>
+        <h2>Say hello<span class="pt">.</span></h2>
         <p class="sub">Questions, ideas, or a car we should see. We read everything.</p>
         <a class="mail" href="mailto:hello@sprkhq.com">hello@sprkhq.com</a>
       </div>
